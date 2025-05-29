@@ -820,8 +820,23 @@ p {
 /* Vision Section */
 .vision-section {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 100%);
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
     margin-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.vision-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(1px);
 }
 
 .vision-container {
@@ -832,6 +847,8 @@ p {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .vision-content {
@@ -841,25 +858,28 @@ p {
 .vision-label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #666;
+    color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .vision-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 800;
-    color: #333;
+    color: white;
     margin-bottom: 2rem;
     line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .vision-description {
     font-size: 1.1rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .vision-image {
@@ -955,15 +975,32 @@ p {
 /* CTA Section */
 .cta-section {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #00bcd4, #4caf50, #ff6b35);
+    background-size: 400% 400%;
+    animation: gradientMove 8s ease infinite;
     color: white;
     margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
 }
 
 .cta-content {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .cta-content h2 {
@@ -971,6 +1008,7 @@ p {
     font-weight: 800;
     margin-bottom: 1rem;
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cta-content p {
@@ -978,6 +1016,7 @@ p {
     margin-bottom: 2rem;
     opacity: 0.95;
     color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .cta-buttons {
@@ -1534,22 +1573,56 @@ p {
 /* Contact Page Styles */
 .contact-hero-section {
     padding: 120px 0 80px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #00bcd4, #4caf50, #ff6b35);
+    background-size: 400% 400%;
+    animation: gradientMove 8s ease infinite;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
+}
+
+.contact-hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .contact-hero-content h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    color: #333;
+    color: white;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .contact-hero-content .lead {
     font-size: 1.25rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     max-width: 600px;
     margin: 0 auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Contact Information Cards */
@@ -1823,25 +1896,47 @@ p {
 /* FAQ Section */
 .faq-section {
     padding: 80px 0;
-    background: #f8f9fa;
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(1px);
+}
+
+.faq-section .container {
+    position: relative;
+    z-index: 2;
 }
 
 .faq-section h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #333;
+    color: white;
     text-align: center;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .faq-intro {
     text-align: center;
     font-size: 1.1rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     margin-bottom: 3rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .faq-grid {
@@ -1852,28 +1947,46 @@ p {
 }
 
 .faq-item {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
 }
 
 .faq-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 .faq-item h3 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: #333;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    margin-top: 0.5rem;
 }
 
 .faq-item p {
-    color: #666;
-    line-height: 1.6;
+    color: #555;
+    line-height: 1.7;
     margin-bottom: 0;
+    font-size: 1rem;
 }
 
 /* Responsive Design for Contact Page */
@@ -1921,7 +2034,7 @@ p {
     }
 
     .faq-item {
-        padding: 1.5rem;
+        padding: 2rem;
     }
 
     .hours-item {
@@ -1933,7 +2046,9 @@ p {
 
 /* News & Events Page Styles */
 .news-events-hero {
-    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #00bcd4, #4caf50, #ff6b35);
+    background-size: 400% 400%;
+    animation: gradientMove 8s ease infinite;
     padding: 140px 0 80px;
     position: relative;
     overflow: hidden;
@@ -1946,8 +2061,8 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.1;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
 }
 
 .news-events-hero .container {
@@ -1967,16 +2082,18 @@ p {
 .news-events-hero-text h1 {
     font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 900;
-    color: #333;
+    color: white;
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .news-events-hero-text p {
     font-size: 1.2rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     margin-bottom: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .news-events-hero-image {
@@ -2159,10 +2276,13 @@ p {
 
 /* Newsletter Section */
 .newsletter-section {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #667eea);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
     color: white;
     padding: 80px 0;
     position: relative;
+    overflow: hidden;
 }
 
 .newsletter-section::before {
@@ -2172,8 +2292,8 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>');
-    background-size: 50px 50px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(1px);
 }
 
 .newsletter-content {
@@ -2188,12 +2308,14 @@ p {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 800;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .newsletter-content p {
     font-size: 1.1rem;
     margin-bottom: 2rem;
-    opacity: 0.9;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .newsletter-form-wrapper {
@@ -2446,9 +2568,12 @@ p {
 
 .gallery-hero-section {
     padding: 120px 0 80px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #00bcd4, #4caf50, #ff6b35);
+    background-size: 400% 400%;
+    animation: gradientMove 8s ease infinite;
     text-align: center;
     position: relative;
+    overflow: hidden;
 }
 
 .gallery-hero-section::before {
@@ -2458,8 +2583,8 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ff6b35" opacity="0.1"/></svg>');
-    background-size: 30px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
 }
 
 .gallery-hero-content {
@@ -2472,17 +2597,19 @@ p {
 .gallery-hero-content h1 {
     font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 800;
-    color: #333;
+    color: white;
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-hero-content .lead {
     font-size: 1.25rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Gallery Filter Section */
