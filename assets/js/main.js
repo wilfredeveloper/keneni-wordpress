@@ -21,6 +21,12 @@
 
         // Components are initialized in their respective files
         // This ensures better code organization and maintainability
+
+        // Initialize gallery functionality if on gallery page
+        if ($('.gallery-page').length) {
+            // Gallery components are loaded and initialized in gallery-filter.js
+            console.log('Gallery page detected - gallery functionality loaded');
+        }
     });
 
     /**

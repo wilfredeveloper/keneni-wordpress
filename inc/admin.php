@@ -277,22 +277,28 @@ function cbc_school_save_meta_box_data($post_id) {
 add_action('save_post', 'cbc_school_save_meta_box_data');
 
 /**
- * Add admin notice if About page is missing
+ * Add admin notice if pages are missing
  */
 function cbc_school_admin_notices() {
     $about_page = get_page_by_path('about');
     $academics_page = get_page_by_path('academics');
+    $contact_page = get_page_by_path('contact');
 
-    if (!$about_page || !$academics_page) {
+    $missing_pages = array();
+    if (!$about_page) $missing_pages[] = 'About';
+    if (!$academics_page) $missing_pages[] = 'Academics';
+    if (!$contact_page) $missing_pages[] = 'Contact';
+
+    if (!empty($missing_pages)) {
         echo '<div class="notice notice-warning is-dismissible">';
         echo '<p><strong>CBC School Theme:</strong> ';
 
-        if (!$about_page && !$academics_page) {
-            echo 'The About and Academics pages are missing. ';
-        } elseif (!$about_page) {
-            echo 'The About page is missing. ';
+        if (count($missing_pages) === 1) {
+            echo 'The ' . $missing_pages[0] . ' page is missing. ';
+        } elseif (count($missing_pages) === 2) {
+            echo 'The ' . implode(' and ', $missing_pages) . ' pages are missing. ';
         } else {
-            echo 'The Academics page is missing. ';
+            echo 'The ' . implode(', ', array_slice($missing_pages, 0, -1)) . ', and ' . end($missing_pages) . ' pages are missing. ';
         }
 
         echo '<a href="' . admin_url('admin.php?page=cbc-school-setup') . '">Go to Theme Setup</a> to create them.</p>';
@@ -388,6 +394,76 @@ function cbc_school_create_default_pages() {
         if ($current_template !== 'page-academics.php') {
             update_post_meta($academics_page->ID, '_wp_page_template', 'page-academics.php');
             error_log('CBC School Theme: Updated Academics page template to page-academics.php');
+        }
+    }
+
+    // Check if Contact page exists
+    $contact_page = get_page_by_path('contact');
+
+    if (!$contact_page) {
+        // Create Contact page
+        $contact_page_id = wp_insert_post(array(
+            'post_title' => 'Contact',
+            'post_name' => 'contact',
+            'post_content' => 'This page uses the Contact template to display contact information, forms, and location details.',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'meta_input' => array(
+                '_wp_page_template' => 'page-contact.php'
+            )
+        ));
+
+        if ($contact_page_id && !is_wp_error($contact_page_id)) {
+            // Set the page template
+            update_post_meta($contact_page_id, '_wp_page_template', 'page-contact.php');
+
+            // Log success
+            error_log('CBC School Theme: Contact page created successfully with ID: ' . $contact_page_id);
+        } else {
+            // Log error
+            error_log('CBC School Theme: Failed to create Contact page. Error: ' . (is_wp_error($contact_page_id) ? $contact_page_id->get_error_message() : 'Unknown error'));
+        }
+    } else {
+        // Page exists, ensure it has the correct template
+        $current_template = get_post_meta($contact_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-contact.php') {
+            update_post_meta($contact_page->ID, '_wp_page_template', 'page-contact.php');
+            error_log('CBC School Theme: Updated Contact page template to page-contact.php');
+        }
+    }
+
+    // Check if Gallery page exists
+    $gallery_page = get_page_by_path('gallery');
+
+    if (!$gallery_page) {
+        // Create Gallery page
+        $gallery_page_id = wp_insert_post(array(
+            'post_title' => 'Gallery',
+            'post_name' => 'gallery',
+            'post_content' => 'This page uses the Gallery template to display school photos organized by categories.',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'meta_input' => array(
+                '_wp_page_template' => 'page-gallery.php'
+            )
+        ));
+
+        if ($gallery_page_id && !is_wp_error($gallery_page_id)) {
+            // Set the page template
+            update_post_meta($gallery_page_id, '_wp_page_template', 'page-gallery.php');
+
+            // Log success
+            error_log('CBC School Theme: Gallery page created successfully with ID: ' . $gallery_page_id);
+        } else {
+            // Log error
+            error_log('CBC School Theme: Failed to create Gallery page. Error: ' . (is_wp_error($gallery_page_id) ? $gallery_page_id->get_error_message() : 'Unknown error'));
+        }
+    } else {
+        // Page exists, ensure it has the correct template
+        $current_template = get_post_meta($gallery_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-gallery.php') {
+            update_post_meta($gallery_page->ID, '_wp_page_template', 'page-gallery.php');
+            error_log('CBC School Theme: Updated Gallery page template to page-gallery.php');
         }
     }
 
@@ -514,6 +590,8 @@ function cbc_school_setup_page() {
 
     $about_page = get_page_by_path('about');
     $academics_page = get_page_by_path('academics');
+    $contact_page = get_page_by_path('contact');
+    $gallery_page = get_page_by_path('gallery');
 
     echo '<div class="wrap">';
     echo '<h1>CBC School Theme Setup</h1>';
@@ -543,6 +621,32 @@ function cbc_school_setup_page() {
         echo '<td><span style="color: green;">✓ Created</span></td>';
         echo '<td><a href="' . get_permalink($academics_page->ID) . '" target="_blank">View Page</a> | ';
         echo '<a href="' . admin_url('post.php?post=' . $academics_page->ID . '&action=edit') . '">Edit</a></td>';
+    } else {
+        echo '<td><span style="color: red;">✗ Missing</span></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';
+    }
+    echo '</tr>';
+
+    // Contact page status
+    echo '<tr>';
+    echo '<td>Contact</td>';
+    if ($contact_page) {
+        echo '<td><span style="color: green;">✓ Created</span></td>';
+        echo '<td><a href="' . get_permalink($contact_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $contact_page->ID . '&action=edit') . '">Edit</a></td>';
+    } else {
+        echo '<td><span style="color: red;">✗ Missing</span></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';
+    }
+    echo '</tr>';
+
+    // Gallery page status
+    echo '<tr>';
+    echo '<td>Gallery</td>';
+    if ($gallery_page) {
+        echo '<td><span style="color: green;">✓ Created</span></td>';
+        echo '<td><a href="' . get_permalink($gallery_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $gallery_page->ID . '&action=edit') . '">Edit</a></td>';
     } else {
         echo '<td><span style="color: red;">✗ Missing</span></td>';
         echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';

@@ -82,6 +82,14 @@ function cbc_school_scripts() {
         true
     );
 
+    wp_enqueue_script(
+        'cbc-school-gallery-filter',
+        CBC_SCHOOL_THEME_URI . '/assets/js/components/gallery-filter.js',
+        array('jquery', 'cbc-school-main'),
+        $theme_version,
+        true
+    );
+
     // Localize script for AJAX and other dynamic data
     wp_localize_script('cbc-school-main', 'cbcSchoolData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),

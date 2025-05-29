@@ -1,7 +1,7 @@
 <?php
 /**
  * Navigation Template Part
- * 
+ *
  * @package CBC_School_Modern
  */
 
@@ -30,11 +30,13 @@ if (!defined('ABSPATH')) {
 function cbc_school_fallback_menu() {
     echo '<ul id="primary-menu">';
     echo '<li><a href="' . esc_url(home_url('/')) . '">' . esc_html__('Home', 'cbc-school-modern') . '</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/about/')) . '">' . esc_html__('About', 'cbc-school-modern') . '</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/academics/')) . '">' . esc_html__('Academics', 'cbc-school-modern') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/about/')) . '">' . esc_html__('About Us', 'cbc-school-modern') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/programs/')) . '">' . esc_html__('Programs', 'cbc-school-modern') . '</a></li>';
     echo '<li><a href="' . esc_url(home_url('/admissions/')) . '">' . esc_html__('Admissions', 'cbc-school-modern') . '</a></li>';
     echo '<li><a href="' . esc_url(home_url('/news-events/')) . '">' . esc_html__('News & Events', 'cbc-school-modern') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/gallery/')) . '">' . esc_html__('Gallery', 'cbc-school-modern') . '</a></li>';
     echo '<li><a href="' . esc_url(home_url('/contact/')) . '">' . esc_html__('Contact', 'cbc-school-modern') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/student-portal/')) . '">' . esc_html__('Student Portal', 'cbc-school-modern') . '</a></li>';
     echo '</ul>';
 }
 ?>
