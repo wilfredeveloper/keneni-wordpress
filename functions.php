@@ -18,6 +18,7 @@ define('CBC_SCHOOL_THEME_URI', get_template_directory_uri());
 // Include theme files
 require_once CBC_SCHOOL_THEME_DIR . '/inc/admin.php';
 require_once CBC_SCHOOL_THEME_DIR . '/inc/customizer.php';
+require_once CBC_SCHOOL_THEME_DIR . '/inc/customizer-about.php';
 require_once CBC_SCHOOL_THEME_DIR . '/inc/custom-post-types.php';
 require_once CBC_SCHOOL_THEME_DIR . '/inc/widgets.php';
 require_once CBC_SCHOOL_THEME_DIR . '/inc/helpers.php';
@@ -73,6 +74,14 @@ function cbc_school_scripts() {
         true
     );
 
+    wp_enqueue_script(
+        'cbc-school-staff-filter',
+        CBC_SCHOOL_THEME_URI . '/assets/js/components/staff-filter.js',
+        array('jquery', 'cbc-school-main'),
+        $theme_version,
+        true
+    );
+
     // Localize script for AJAX and other dynamic data
     wp_localize_script('cbc-school-main', 'cbcSchoolData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -97,3 +106,26 @@ add_action('wp_enqueue_scripts', 'cbc_school_scripts');
  * Theme initialization complete
  * All other functionality is loaded from include files
  */
+
+/**
+ * Manual trigger to create About page (for debugging)
+ * Add ?create_about_page=1 to any admin URL to trigger page creation
+ */
+function cbc_school_manual_page_creation() {
+    if (isset($_GET['create_about_page']) && $_GET['create_about_page'] == '1' && current_user_can('manage_options')) {
+        // Include admin functions if not already loaded
+        if (!function_exists('cbc_school_create_default_pages')) {
+            require_once CBC_SCHOOL_THEME_DIR . '/inc/admin.php';
+        }
+
+        cbc_school_create_default_pages();
+
+        // Show success message
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-success is-dismissible">';
+            echo '<p>About page creation triggered! Check the <a href="' . admin_url('admin.php?page=cbc-school-setup') . '">Theme Setup page</a> for status.</p>';
+            echo '</div>';
+        });
+    }
+}
+add_action('admin_init', 'cbc_school_manual_page_creation');

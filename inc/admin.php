@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin Functionality
- * 
+ *
  * @package CBC_School_Modern
  */
 
@@ -67,7 +67,7 @@ function cbc_school_events_columns($columns) {
     $new_columns['event_date'] = __('Event Date', 'cbc-school-modern');
     $new_columns['featured_image'] = __('Featured Image', 'cbc-school-modern');
     $new_columns['date'] = $columns['date'];
-    
+
     return $new_columns;
 }
 add_filter('manage_events_posts_columns', 'cbc_school_events_columns');
@@ -85,7 +85,7 @@ function cbc_school_events_column_content($column, $post_id) {
                 echo '—';
             }
             break;
-            
+
         case 'featured_image':
             if (has_post_thumbnail($post_id)) {
                 echo get_the_post_thumbnail($post_id, array(50, 50));
@@ -108,7 +108,7 @@ function cbc_school_staff_columns($columns) {
     $new_columns['department'] = __('Department', 'cbc-school-modern');
     $new_columns['featured_image'] = __('Photo', 'cbc-school-modern');
     $new_columns['date'] = $columns['date'];
-    
+
     return $new_columns;
 }
 add_filter('manage_staff_posts_columns', 'cbc_school_staff_columns');
@@ -122,12 +122,12 @@ function cbc_school_staff_column_content($column, $post_id) {
             $position = get_post_meta($post_id, 'staff_position', true);
             echo $position ? esc_html($position) : '—';
             break;
-            
+
         case 'department':
             $department = get_post_meta($post_id, 'staff_department', true);
             echo $department ? esc_html($department) : '—';
             break;
-            
+
         case 'featured_image':
             if (has_post_thumbnail($post_id)) {
                 echo get_the_post_thumbnail($post_id, array(50, 50));
@@ -152,7 +152,7 @@ function cbc_school_add_meta_boxes() {
         'normal',
         'high'
     );
-    
+
     // Staff meta box
     add_meta_box(
         'staff_details',
@@ -170,11 +170,11 @@ add_action('add_meta_boxes', 'cbc_school_add_meta_boxes');
  */
 function cbc_school_event_meta_box_callback($post) {
     wp_nonce_field('cbc_school_event_meta_box', 'cbc_school_event_meta_box_nonce');
-    
+
     $event_date = get_post_meta($post->ID, 'event_date', true);
     $event_time = get_post_meta($post->ID, 'event_time', true);
     $event_location = get_post_meta($post->ID, 'event_location', true);
-    
+
     echo '<table class="form-table">';
     echo '<tr>';
     echo '<th><label for="event_date">' . __('Event Date', 'cbc-school-modern') . '</label></th>';
@@ -196,12 +196,12 @@ function cbc_school_event_meta_box_callback($post) {
  */
 function cbc_school_staff_meta_box_callback($post) {
     wp_nonce_field('cbc_school_staff_meta_box', 'cbc_school_staff_meta_box_nonce');
-    
+
     $staff_position = get_post_meta($post->ID, 'staff_position', true);
     $staff_department = get_post_meta($post->ID, 'staff_department', true);
     $staff_email = get_post_meta($post->ID, 'staff_email', true);
     $staff_phone = get_post_meta($post->ID, 'staff_phone', true);
-    
+
     echo '<table class="form-table">';
     echo '<tr>';
     echo '<th><label for="staff_position">' . __('Position', 'cbc-school-modern') . '</label></th>';
@@ -230,25 +230,25 @@ function cbc_school_save_meta_box_data($post_id) {
     if (!isset($_POST['cbc_school_event_meta_box_nonce']) && !isset($_POST['cbc_school_staff_meta_box_nonce'])) {
         return;
     }
-    
+
     // Verify nonce
     if (isset($_POST['cbc_school_event_meta_box_nonce'])) {
         if (!wp_verify_nonce($_POST['cbc_school_event_meta_box_nonce'], 'cbc_school_event_meta_box')) {
             return;
         }
     }
-    
+
     if (isset($_POST['cbc_school_staff_meta_box_nonce'])) {
         if (!wp_verify_nonce($_POST['cbc_school_staff_meta_box_nonce'], 'cbc_school_staff_meta_box')) {
             return;
         }
     }
-    
+
     // Check user permissions
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
-    
+
     // Save event meta
     if (isset($_POST['event_date'])) {
         update_post_meta($post_id, 'event_date', sanitize_text_field($_POST['event_date']));
@@ -259,7 +259,7 @@ function cbc_school_save_meta_box_data($post_id) {
     if (isset($_POST['event_location'])) {
         update_post_meta($post_id, 'event_location', sanitize_text_field($_POST['event_location']));
     }
-    
+
     // Save staff meta
     if (isset($_POST['staff_position'])) {
         update_post_meta($post_id, 'staff_position', sanitize_text_field($_POST['staff_position']));
@@ -275,3 +275,226 @@ function cbc_school_save_meta_box_data($post_id) {
     }
 }
 add_action('save_post', 'cbc_school_save_meta_box_data');
+
+/**
+ * Add admin notice if About page is missing
+ */
+function cbc_school_admin_notices() {
+    $about_page = get_page_by_path('about');
+
+    if (!$about_page) {
+        echo '<div class="notice notice-warning is-dismissible">';
+        echo '<p><strong>CBC School Theme:</strong> The About page is missing. ';
+        echo '<a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-about-page') . '">Click here to create it</a> ';
+        echo 'or create it manually and assign the "About Us Page" template.</p>';
+        echo '</div>';
+    }
+}
+add_action('admin_notices', 'cbc_school_admin_notices');
+
+/**
+ * Handle manual page creation
+ */
+function cbc_school_handle_admin_actions() {
+    if (isset($_GET['page']) && $_GET['page'] === 'cbc-school-setup' && isset($_GET['action'])) {
+        if ($_GET['action'] === 'create-about-page' && current_user_can('manage_options')) {
+            cbc_school_create_default_pages();
+
+            // Redirect back to admin with success message
+            wp_redirect(admin_url('admin.php?page=cbc-school-setup&created=about'));
+            exit;
+        }
+    }
+}
+add_action('admin_init', 'cbc_school_handle_admin_actions');
+
+/**
+ * Create default pages on theme activation
+ */
+function cbc_school_create_default_pages() {
+    // Check if About page exists
+    $about_page = get_page_by_path('about');
+
+    if (!$about_page) {
+        // Create About page
+        $about_page_id = wp_insert_post(array(
+            'post_title' => 'About Us',
+            'post_name' => 'about',
+            'post_content' => 'This page uses the About Us template to display comprehensive information about our school.',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'meta_input' => array(
+                '_wp_page_template' => 'page-about.php'
+            )
+        ));
+
+        if ($about_page_id && !is_wp_error($about_page_id)) {
+            // Set the page template
+            update_post_meta($about_page_id, '_wp_page_template', 'page-about.php');
+
+            // Log success
+            error_log('CBC School Theme: About page created successfully with ID: ' . $about_page_id);
+        } else {
+            // Log error
+            error_log('CBC School Theme: Failed to create About page. Error: ' . (is_wp_error($about_page_id) ? $about_page_id->get_error_message() : 'Unknown error'));
+        }
+    } else {
+        // Page exists, ensure it has the correct template
+        $current_template = get_post_meta($about_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-about.php') {
+            update_post_meta($about_page->ID, '_wp_page_template', 'page-about.php');
+            error_log('CBC School Theme: Updated About page template to page-about.php');
+        }
+    }
+
+    // Create sample staff members if none exist
+    $staff_query = new WP_Query(array(
+        'post_type' => 'staff',
+        'posts_per_page' => 1,
+        'post_status' => 'publish'
+    ));
+
+    if (!$staff_query->have_posts()) {
+        $sample_staff = array(
+            array(
+                'name' => 'Dr. Mary Wanjiku',
+                'position' => 'Head Teacher',
+                'department' => 'Administration',
+                'email' => 'headteacher@cbcschool.ac.ke',
+                'phone' => '+254 700 123 456',
+                'bio' => 'Dr. Wanjiku brings over 20 years of educational leadership experience to our school. She holds a PhD in Educational Administration and is passionate about implementing innovative teaching methods.'
+            ),
+            array(
+                'name' => 'Mr. James Kiprotich',
+                'position' => 'Deputy Head Teacher',
+                'department' => 'Administration',
+                'email' => 'deputy@cbcschool.ac.ke',
+                'phone' => '+254 700 123 457',
+                'bio' => 'Mr. Kiprotich oversees academic programs and curriculum implementation. He has been instrumental in our successful transition to the CBC system.'
+            ),
+            array(
+                'name' => 'Ms. Grace Achieng',
+                'position' => 'Grade 1 Teacher',
+                'department' => 'Teaching Staff',
+                'email' => 'grace.achieng@cbcschool.ac.ke',
+                'bio' => 'Ms. Achieng specializes in early childhood education and has a gift for making learning fun and engaging for our youngest learners.'
+            ),
+            array(
+                'name' => 'Mr. David Mwangi',
+                'position' => 'Mathematics Teacher',
+                'department' => 'Teaching Staff',
+                'email' => 'david.mwangi@cbcschool.ac.ke',
+                'bio' => 'Mr. Mwangi makes mathematics accessible and enjoyable for students of all levels. He holds a degree in Mathematics Education.'
+            ),
+            array(
+                'name' => 'Mrs. Sarah Njeri',
+                'position' => 'Science Teacher',
+                'department' => 'Teaching Staff',
+                'email' => 'sarah.njeri@cbcschool.ac.ke',
+                'bio' => 'Mrs. Njeri brings science to life through hands-on experiments and real-world applications. She has a background in Biology and Chemistry.'
+            ),
+            array(
+                'name' => 'Mr. Peter Ochieng',
+                'position' => 'ICT Coordinator',
+                'department' => 'Support Staff',
+                'email' => 'ict@cbcschool.ac.ke',
+                'bio' => 'Mr. Ochieng manages our technology infrastructure and teaches digital literacy skills to students and staff.'
+            )
+        );
+
+        foreach ($sample_staff as $staff_member) {
+            $staff_id = wp_insert_post(array(
+                'post_title' => $staff_member['name'],
+                'post_content' => $staff_member['bio'],
+                'post_status' => 'publish',
+                'post_type' => 'staff'
+            ));
+
+            if ($staff_id && !is_wp_error($staff_id)) {
+                update_post_meta($staff_id, 'staff_position', $staff_member['position']);
+                update_post_meta($staff_id, 'staff_department', $staff_member['department']);
+                update_post_meta($staff_id, 'staff_email', $staff_member['email']);
+                if (isset($staff_member['phone'])) {
+                    update_post_meta($staff_id, 'staff_phone', $staff_member['phone']);
+                }
+            }
+        }
+    }
+
+    wp_reset_postdata();
+
+    // Flush rewrite rules to ensure permalinks work
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'cbc_school_create_default_pages');
+
+/**
+ * Force create pages if they don't exist (can be called manually)
+ */
+function cbc_school_force_create_pages() {
+    cbc_school_create_default_pages();
+
+    // Also ensure permalinks are flushed
+    flush_rewrite_rules();
+
+    return true;
+}
+
+/**
+ * Add a simple admin page for theme setup
+ */
+function cbc_school_add_admin_menu() {
+    add_theme_page(
+        'CBC School Setup',
+        'Theme Setup',
+        'manage_options',
+        'cbc-school-setup',
+        'cbc_school_setup_page'
+    );
+}
+add_action('admin_menu', 'cbc_school_add_admin_menu');
+
+/**
+ * Theme setup admin page
+ */
+function cbc_school_setup_page() {
+    if (isset($_GET['created']) && $_GET['created'] === 'about') {
+        echo '<div class="notice notice-success"><p>About page created successfully!</p></div>';
+    }
+
+    $about_page = get_page_by_path('about');
+
+    echo '<div class="wrap">';
+    echo '<h1>CBC School Theme Setup</h1>';
+
+    echo '<h2>Page Status</h2>';
+    echo '<table class="widefat">';
+    echo '<thead><tr><th>Page</th><th>Status</th><th>Action</th></tr></thead>';
+    echo '<tbody>';
+
+    // About page status
+    echo '<tr>';
+    echo '<td>About Us</td>';
+    if ($about_page) {
+        echo '<td><span style="color: green;">✓ Created</span></td>';
+        echo '<td><a href="' . get_permalink($about_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $about_page->ID . '&action=edit') . '">Edit</a></td>';
+    } else {
+        echo '<td><span style="color: red;">✗ Missing</span></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-about-page') . '" class="button">Create Page</a></td>';
+    }
+    echo '</tr>';
+
+    echo '</tbody>';
+    echo '</table>';
+
+    echo '<h2>Troubleshooting</h2>';
+    echo '<p>If pages are not working:</p>';
+    echo '<ol>';
+    echo '<li>Go to <a href="' . admin_url('options-permalink.php') . '">Settings → Permalinks</a> and click "Save Changes"</li>';
+    echo '<li>Make sure your theme is activated</li>';
+    echo '<li>Check that the page template is assigned correctly</li>';
+    echo '</ol>';
+
+    echo '</div>';
+}

@@ -384,5 +384,290 @@ function cbc_school_customize_register($wp_customize) {
         'section' => 'highlights_section',
         'type' => 'text',
     ));
+
+    // About Page Section
+    $wp_customize->add_section('about_page_section', array(
+        'title' => __('About Page Settings', 'cbc-school-modern'),
+        'priority' => 35,
+    ));
+
+    // About Hero Section
+    $wp_customize->add_setting('about_hero_title', array(
+        'default' => 'About Our School',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_hero_title', array(
+        'label' => __('Hero Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_hero_description', array(
+        'default' => 'Discover our commitment to excellence in CBC education and nurturing tomorrow\'s leaders through innovative learning approaches.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('about_hero_description', array(
+        'label' => __('Hero Description', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_hero_image', array(
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'about_hero_image', array(
+        'label' => __('Hero Background Image', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'mime_type' => 'image',
+    )));
+
+    // Hero Stats
+    for ($i = 1; $i <= 3; $i++) {
+        $wp_customize->add_setting("about_stat_{$i}_number", array(
+            'default' => $i == 1 ? '15+' : ($i == 2 ? '500+' : '98%'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_stat_{$i}_number", array(
+            'label' => sprintf(__('Stat %d Number', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("about_stat_{$i}_label", array(
+            'default' => $i == 1 ? 'Years of Excellence' : ($i == 2 ? 'Happy Students' : 'Success Rate'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_stat_{$i}_label", array(
+            'label' => sprintf(__('Stat %d Label', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+    }
+
+    // Mission & Vision Section
+    $wp_customize->add_setting('about_mv_section_title', array(
+        'default' => 'Our Mission & Vision',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_mv_section_title', array(
+        'label' => __('Mission & Vision Section Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_mv_section_subtitle', array(
+        'default' => 'Guiding principles that drive our commitment to educational excellence',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_mv_section_subtitle', array(
+        'label' => __('Mission & Vision Section Subtitle', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_mission_title', array(
+        'default' => 'Our Mission',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_mission_title', array(
+        'label' => __('Mission Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_mission_content', array(
+        'default' => 'To provide quality, holistic education that nurtures competent, confident, and ethical learners who contribute meaningfully to society through the Competency-Based Curriculum approach.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('about_mission_content', array(
+        'label' => __('Mission Content', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_vision_title', array(
+        'default' => 'Our Vision',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_vision_title', array(
+        'label' => __('Vision Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_vision_content', array(
+        'default' => 'To be a leading educational institution that empowers learners to become innovative, responsible, and globally competitive citizens who positively impact their communities.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('about_vision_content', array(
+        'label' => __('Vision Content', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_values_title', array(
+        'default' => 'Core Values',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_values_title', array(
+        'label' => __('Values Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_values_content', array(
+        'default' => 'Excellence, Integrity, Innovation, Respect, Collaboration, and Community Service guide everything we do in nurturing well-rounded learners.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('about_values_content', array(
+        'label' => __('Values Content', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ));
+
+    // School History Section
+    $wp_customize->add_setting('about_history_title', array(
+        'default' => 'Our Story',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_history_title', array(
+        'label' => __('History Section Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_history_content', array(
+        'default' => 'Founded in 2008, our school began with a vision to provide quality education that prepares students for the challenges of the 21st century. Over the years, we have grown from a small community school to a leading educational institution, always maintaining our commitment to excellence and innovation in teaching and learning.',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('about_history_content', array(
+        'label' => __('History Content', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('about_history_image', array(
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'about_history_image', array(
+        'label' => __('History Section Image', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'mime_type' => 'image',
+    )));
+
+    // Timeline Items
+    for ($i = 1; $i <= 3; $i++) {
+        $default_years = array(1 => '2008', 2 => '2015', 3 => '2020');
+        $default_titles = array(1 => 'School Founded', 2 => 'CBC Implementation', 3 => 'Digital Learning');
+        $default_descriptions = array(
+            1 => 'Established with 50 students and a vision for excellence',
+            2 => 'Successfully transitioned to Competency-Based Curriculum',
+            3 => 'Integrated technology and digital learning platforms'
+        );
+
+        $wp_customize->add_setting("about_timeline_{$i}_year", array(
+            'default' => $default_years[$i],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_timeline_{$i}_year", array(
+            'label' => sprintf(__('Timeline %d Year', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("about_timeline_{$i}_title", array(
+            'default' => $default_titles[$i],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_timeline_{$i}_title", array(
+            'label' => sprintf(__('Timeline %d Title', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("about_timeline_{$i}_description", array(
+            'default' => $default_descriptions[$i],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_timeline_{$i}_description", array(
+            'label' => sprintf(__('Timeline %d Description', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+    }
+
+    // Academic Excellence Section
+    $wp_customize->add_setting('about_academic_title', array(
+        'default' => 'Academic Excellence',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_academic_title', array(
+        'label' => __('Academic Section Title', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('about_academic_subtitle', array(
+        'default' => 'Committed to delivering quality education through the Competency-Based Curriculum',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('about_academic_subtitle', array(
+        'label' => __('Academic Section Subtitle', 'cbc-school-modern'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ));
+
+    // Academic Features
+    $academic_defaults = array(
+        1 => array('title' => 'CBC Curriculum', 'description' => 'Fully aligned with Kenya\'s Competency-Based Curriculum, focusing on developing critical thinking, creativity, and practical skills.'),
+        2 => array('title' => 'Qualified Teachers', 'description' => 'Our dedicated team of qualified and experienced teachers are trained in modern pedagogical approaches and CBC implementation.'),
+        3 => array('title' => 'Proven Results', 'description' => 'Consistent excellent performance in national assessments and successful transition of students to secondary education.'),
+        4 => array('title' => 'Holistic Development', 'description' => 'Beyond academics, we focus on character development, life skills, and nurturing talents in sports, arts, and leadership.')
+    );
+
+    for ($i = 1; $i <= 4; $i++) {
+        $wp_customize->add_setting("about_academic_feature_{$i}_title", array(
+            'default' => $academic_defaults[$i]['title'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("about_academic_feature_{$i}_title", array(
+            'label' => sprintf(__('Academic Feature %d Title', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("about_academic_feature_{$i}_description", array(
+            'default' => $academic_defaults[$i]['description'],
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ));
+
+        $wp_customize->add_control("about_academic_feature_{$i}_description", array(
+            'label' => sprintf(__('Academic Feature %d Description', 'cbc-school-modern'), $i),
+            'section' => 'about_page_section',
+            'type' => 'textarea',
+        ));
+    }
 }
 add_action('customize_register', 'cbc_school_customize_register');
