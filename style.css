@@ -3769,3 +3769,1077 @@ p {
         padding: 1.5rem 1rem;
     }
 }
+
+/* ===================================
+   ACADEMICS PAGE STYLES
+   =================================== */
+
+/* Academics Page Main Container */
+.academics-page {
+    padding-top: 80px; /* Account for fixed header */
+}
+
+/* Academics Hero Section */
+.academics-hero-section {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+}
+
+.academics-hero-section .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.academics-hero-section .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.academics-hero-section .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.academics-hero-section .container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.academics-hero-section .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.academics-hero-section .page-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.academics-hero-section .hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+    line-height: 1.6;
+    color: white;
+}
+
+/* Academic Programs Section */
+.academic-programs-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.academic-programs-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.academic-programs-section .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.academic-programs-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.academic-programs-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Programs Grid */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.program-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.program-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.program-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.program-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.program-details {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.age-range {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* CBC Curriculum Section */
+.cbc-curriculum-section {
+    padding: 6rem 0;
+    background: white;
+}
+
+.cbc-curriculum-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.curriculum-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.curriculum-text h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.curriculum-description {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+}
+
+.cbc-features {
+    display: grid;
+    gap: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.feature-icon {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.feature-item span {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.curriculum-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.curriculum-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.curriculum-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Subject Areas Section */
+.subject-areas-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.subject-areas-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.subject-areas-section .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.subject-areas-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.subject-areas-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Subjects Grid */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.subject-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+.subject-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.subject-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.subject-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.subject-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Subjects CTA */
+.subjects-cta {
+    text-align: center;
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.subjects-cta h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.subjects-cta p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.cta-button.primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+}
+
+/* Assessment Methods Section */
+.assessment-methods-section {
+    padding: 6rem 0;
+    background: white;
+}
+
+.assessment-methods-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.assessment-methods-section .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.assessment-methods-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.assessment-methods-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Assessment Grid */
+.assessment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.assessment-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.assessment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+.assessment-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.assessment-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.assessment-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.assessment-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Assessment Features */
+.assessment-features {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.features-content h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.features-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.assessment-features .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.assessment-features .feature-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Academic Calendar Section */
+.academic-calendar-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.academic-calendar-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.academic-calendar-section .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.academic-calendar-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.academic-calendar-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Calendar Content */
+.calendar-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.calendar-terms {
+    display: grid;
+    gap: 2rem;
+}
+
+.term-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.term-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.term-header {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.term-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.term-dates {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.term-content {
+    padding: 2rem;
+}
+
+.term-content p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.term-highlights {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.highlight-icon {
+    font-size: 1.1rem;
+}
+
+/* Calendar Schedule */
+.calendar-schedule {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.calendar-schedule h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.schedule-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.schedule-item:hover {
+    background: #e9ecef;
+    transform: translateX(3px);
+}
+
+.schedule-item .time {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ff6b35;
+    min-width: 100px;
+}
+
+.schedule-item .activity {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Student Achievements Section */
+.student-achievements-section {
+    padding: 6rem 0;
+    background: white;
+}
+
+.student-achievements-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.student-achievements-section .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.student-achievements-section .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.student-achievements-section .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Achievements Grid */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.achievement-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.achievement-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.achievement-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.achievement-stats .stat {
+    text-align: center;
+}
+
+.achievement-stats .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #ff6b35;
+    margin-bottom: 0.25rem;
+}
+
+.achievement-stats .stat-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.achievement-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Achievements Showcase */
+.achievements-showcase {
+    margin-bottom: 4rem;
+}
+
+.achievements-showcase h3 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.showcase-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.showcase-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.showcase-year {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.showcase-item h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.showcase-item p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Achievements CTA */
+.achievements-cta {
+    text-align: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.achievements-cta h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.achievements-cta p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Mobile Responsive Styles for Academics Page */
+@media (max-width: 768px) {
+    .academics-page {
+        padding-top: 60px;
+    }
+
+    .academics-hero-section {
+        min-height: 60vh;
+        padding: 2rem 0;
+    }
+
+    .academics-hero-section .container {
+        padding: 0 1rem;
+    }
+
+    .academics-hero-section .page-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 1rem;
+    }
+
+    .academics-hero-section .hero-description {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .academic-programs-section,
+    .cbc-curriculum-section,
+    .subject-areas-section,
+    .assessment-methods-section,
+    .academic-calendar-section,
+    .student-achievements-section {
+        padding: 4rem 0;
+    }
+
+    .programs-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .program-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .curriculum-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .curriculum-text {
+        order: 2;
+    }
+
+    .curriculum-image {
+        order: 1;
+    }
+
+    .subjects-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .subject-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .assessment-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .assessment-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .features-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .calendar-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .calendar-schedule {
+        position: static;
+        order: -1;
+    }
+
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .achievement-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .achievement-stats {
+        gap: 1rem;
+    }
+
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .academics-hero-section .container {
+        padding: 0 0.5rem;
+    }
+
+    .academic-programs-section .container,
+    .cbc-curriculum-section .container,
+    .subject-areas-section .container,
+    .assessment-methods-section .container,
+    .academic-calendar-section .container,
+    .student-achievements-section .container {
+        padding: 0 1rem;
+    }
+
+    .program-card,
+    .subject-card,
+    .assessment-card,
+    .achievement-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .program-icon,
+    .subject-icon,
+    .assessment-icon,
+    .achievement-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1.5rem;
+    }
+
+    .achievement-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .achievement-stats .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .calendar-schedule {
+        padding: 2rem 1.5rem;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .schedule-item .time {
+        min-width: auto;
+    }
+}

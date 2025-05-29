@@ -669,5 +669,206 @@ function cbc_school_customize_register($wp_customize) {
             'type' => 'textarea',
         ));
     }
+
+    // Academics Page Section
+    $wp_customize->add_section('academics_page_section', array(
+        'title' => __('Academics Page Settings', 'cbc-school-modern'),
+        'priority' => 36,
+    ));
+
+    // Academics Hero Section
+    $wp_customize->add_setting('academics_hero_title', array(
+        'default' => 'Academic Excellence',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('academics_hero_title', array(
+        'label' => __('Hero Title', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('academics_hero_description', array(
+        'default' => 'Empowering students through the Competency-Based Curriculum with innovative teaching methods and comprehensive learning experiences.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('academics_hero_description', array(
+        'label' => __('Hero Description', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('academics_hero_image', array(
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'academics_hero_image', array(
+        'label' => __('Hero Background Image', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'mime_type' => 'image',
+    )));
+
+    // Hero Stats
+    for ($i = 1; $i <= 3; $i++) {
+        $defaults = array(
+            1 => array('number' => '8', 'label' => 'Grade Levels'),
+            2 => array('number' => '12', 'label' => 'Subject Areas'),
+            3 => array('number' => '100%', 'label' => 'CBC Aligned')
+        );
+
+        $wp_customize->add_setting("academics_stat_{$i}_number", array(
+            'default' => $defaults[$i]['number'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("academics_stat_{$i}_number", array(
+            'label' => sprintf(__('Stat %d Number', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("academics_stat_{$i}_label", array(
+            'default' => $defaults[$i]['label'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("academics_stat_{$i}_label", array(
+            'label' => sprintf(__('Stat %d Label', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'text',
+        ));
+    }
+
+    // Academic Programs Section
+    $wp_customize->add_setting('academics_programs_title', array(
+        'default' => 'Academic Programs',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('academics_programs_title', array(
+        'label' => __('Programs Section Title', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('academics_programs_subtitle', array(
+        'default' => 'Comprehensive educational programs designed to nurture every child\'s potential from early years through primary education',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+
+    $wp_customize->add_control('academics_programs_subtitle', array(
+        'label' => __('Programs Section Subtitle', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'textarea',
+    ));
+
+    // Program Cards
+    $program_defaults = array(
+        1 => array(
+            'title' => 'Pre-Primary (PP1 & PP2)',
+            'description' => 'Foundation years focusing on play-based learning, social skills development, and early literacy and numeracy skills.',
+            'age' => 'Ages 4-6'
+        ),
+        2 => array(
+            'title' => 'Lower Primary (Grade 1-3)',
+            'description' => 'Building fundamental skills in literacy, numeracy, and introducing core subjects through engaging, hands-on activities.',
+            'age' => 'Ages 6-9'
+        ),
+        3 => array(
+            'title' => 'Upper Primary (Grade 4-6)',
+            'description' => 'Advanced learning with specialized subjects, critical thinking development, and preparation for secondary education.',
+            'age' => 'Ages 9-12'
+        )
+    );
+
+    for ($i = 1; $i <= 3; $i++) {
+        $wp_customize->add_setting("academics_program_{$i}_title", array(
+            'default' => $program_defaults[$i]['title'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("academics_program_{$i}_title", array(
+            'label' => sprintf(__('Program %d Title', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("academics_program_{$i}_description", array(
+            'default' => $program_defaults[$i]['description'],
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ));
+
+        $wp_customize->add_control("academics_program_{$i}_description", array(
+            'label' => sprintf(__('Program %d Description', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'textarea',
+        ));
+
+        $wp_customize->add_setting("academics_program_{$i}_age", array(
+            'default' => $program_defaults[$i]['age'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("academics_program_{$i}_age", array(
+            'label' => sprintf(__('Program %d Age Range', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'text',
+        ));
+    }
+
+    // CBC Implementation Section
+    $wp_customize->add_setting('academics_cbc_title', array(
+        'default' => 'CBC Implementation',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('academics_cbc_title', array(
+        'label' => __('CBC Section Title', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'text',
+    ));
+
+    $wp_customize->add_setting('academics_cbc_content', array(
+        'default' => 'Our school is fully aligned with Kenya\'s Competency-Based Curriculum, focusing on developing learners\' competencies through engaging, learner-centered approaches. We emphasize critical thinking, creativity, communication, collaboration, citizenship, and digital literacy.',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('academics_cbc_content', array(
+        'label' => __('CBC Content', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'type' => 'textarea',
+    ));
+
+    $wp_customize->add_setting('academics_cbc_image', array(
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'academics_cbc_image', array(
+        'label' => __('CBC Section Image', 'cbc-school-modern'),
+        'section' => 'academics_page_section',
+        'mime_type' => 'image',
+    )));
+
+    // CBC Features
+    $cbc_features = array(
+        1 => 'Competency-Based Assessment',
+        2 => 'Learner-Centered Approach',
+        3 => 'Integrated Learning Areas',
+        4 => 'Values-Based Education'
+    );
+
+    for ($i = 1; $i <= 4; $i++) {
+        $wp_customize->add_setting("academics_cbc_feature_{$i}", array(
+            'default' => $cbc_features[$i],
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("academics_cbc_feature_{$i}", array(
+            'label' => sprintf(__('CBC Feature %d', 'cbc-school-modern'), $i),
+            'section' => 'academics_page_section',
+            'type' => 'text',
+        ));
+    }
 }
 add_action('customize_register', 'cbc_school_customize_register');

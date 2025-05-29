@@ -281,12 +281,21 @@ add_action('save_post', 'cbc_school_save_meta_box_data');
  */
 function cbc_school_admin_notices() {
     $about_page = get_page_by_path('about');
+    $academics_page = get_page_by_path('academics');
 
-    if (!$about_page) {
+    if (!$about_page || !$academics_page) {
         echo '<div class="notice notice-warning is-dismissible">';
-        echo '<p><strong>CBC School Theme:</strong> The About page is missing. ';
-        echo '<a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-about-page') . '">Click here to create it</a> ';
-        echo 'or create it manually and assign the "About Us Page" template.</p>';
+        echo '<p><strong>CBC School Theme:</strong> ';
+
+        if (!$about_page && !$academics_page) {
+            echo 'The About and Academics pages are missing. ';
+        } elseif (!$about_page) {
+            echo 'The About page is missing. ';
+        } else {
+            echo 'The Academics page is missing. ';
+        }
+
+        echo '<a href="' . admin_url('admin.php?page=cbc-school-setup') . '">Go to Theme Setup</a> to create them.</p>';
         echo '</div>';
     }
 }
@@ -297,11 +306,11 @@ add_action('admin_notices', 'cbc_school_admin_notices');
  */
 function cbc_school_handle_admin_actions() {
     if (isset($_GET['page']) && $_GET['page'] === 'cbc-school-setup' && isset($_GET['action'])) {
-        if ($_GET['action'] === 'create-about-page' && current_user_can('manage_options')) {
+        if ($_GET['action'] === 'create-pages' && current_user_can('manage_options')) {
             cbc_school_create_default_pages();
 
             // Redirect back to admin with success message
-            wp_redirect(admin_url('admin.php?page=cbc-school-setup&created=about'));
+            wp_redirect(admin_url('admin.php?page=cbc-school-setup&created=all'));
             exit;
         }
     }
@@ -344,6 +353,41 @@ function cbc_school_create_default_pages() {
         if ($current_template !== 'page-about.php') {
             update_post_meta($about_page->ID, '_wp_page_template', 'page-about.php');
             error_log('CBC School Theme: Updated About page template to page-about.php');
+        }
+    }
+
+    // Check if Academics page exists
+    $academics_page = get_page_by_path('academics');
+
+    if (!$academics_page) {
+        // Create Academics page
+        $academics_page_id = wp_insert_post(array(
+            'post_title' => 'Academics',
+            'post_name' => 'academics',
+            'post_content' => 'This page uses the Academics template to display comprehensive information about our curriculum and educational programs.',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'meta_input' => array(
+                '_wp_page_template' => 'page-academics.php'
+            )
+        ));
+
+        if ($academics_page_id && !is_wp_error($academics_page_id)) {
+            // Set the page template
+            update_post_meta($academics_page_id, '_wp_page_template', 'page-academics.php');
+
+            // Log success
+            error_log('CBC School Theme: Academics page created successfully with ID: ' . $academics_page_id);
+        } else {
+            // Log error
+            error_log('CBC School Theme: Failed to create Academics page. Error: ' . (is_wp_error($academics_page_id) ? $academics_page_id->get_error_message() : 'Unknown error'));
+        }
+    } else {
+        // Page exists, ensure it has the correct template
+        $current_template = get_post_meta($academics_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-academics.php') {
+            update_post_meta($academics_page->ID, '_wp_page_template', 'page-academics.php');
+            error_log('CBC School Theme: Updated Academics page template to page-academics.php');
         }
     }
 
@@ -458,11 +502,18 @@ add_action('admin_menu', 'cbc_school_add_admin_menu');
  * Theme setup admin page
  */
 function cbc_school_setup_page() {
-    if (isset($_GET['created']) && $_GET['created'] === 'about') {
-        echo '<div class="notice notice-success"><p>About page created successfully!</p></div>';
+    if (isset($_GET['created'])) {
+        if ($_GET['created'] === 'about') {
+            echo '<div class="notice notice-success"><p>About page created successfully!</p></div>';
+        } elseif ($_GET['created'] === 'academics') {
+            echo '<div class="notice notice-success"><p>Academics page created successfully!</p></div>';
+        } elseif ($_GET['created'] === 'all') {
+            echo '<div class="notice notice-success"><p>All pages have been created/updated successfully!</p></div>';
+        }
     }
 
     $about_page = get_page_by_path('about');
+    $academics_page = get_page_by_path('academics');
 
     echo '<div class="wrap">';
     echo '<h1>CBC School Theme Setup</h1>';
@@ -481,12 +532,28 @@ function cbc_school_setup_page() {
         echo '<a href="' . admin_url('post.php?post=' . $about_page->ID . '&action=edit') . '">Edit</a></td>';
     } else {
         echo '<td><span style="color: red;">✗ Missing</span></td>';
-        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-about-page') . '" class="button">Create Page</a></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';
+    }
+    echo '</tr>';
+
+    // Academics page status
+    echo '<tr>';
+    echo '<td>Academics</td>';
+    if ($academics_page) {
+        echo '<td><span style="color: green;">✓ Created</span></td>';
+        echo '<td><a href="' . get_permalink($academics_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $academics_page->ID . '&action=edit') . '">Edit</a></td>';
+    } else {
+        echo '<td><span style="color: red;">✗ Missing</span></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';
     }
     echo '</tr>';
 
     echo '</tbody>';
     echo '</table>';
+
+    echo '<h2>Quick Actions</h2>';
+    echo '<p><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button button-primary">Create All Missing Pages</a></p>';
 
     echo '<h2>Troubleshooting</h2>';
     echo '<p>If pages are not working:</p>';
