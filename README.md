@@ -1,198 +1,133 @@
 # CBC School Modern WordPress Theme
 
-A modern, professional WordPress theme designed specifically for CBC (Competency-Based Curriculum) schools. This theme features clean typography, responsive design, and educational-focused layouts inspired by contemporary web design trends.
+A modern, responsive WordPress theme designed specifically for educational institutions implementing the Competency-Based Curriculum (CBC) in Kenya.
 
-## Features
+## 🏗️ Professional Theme Structure
 
-### Design & Layout
-- **Modern Hero Section**: Eye-catching gradient background with customizable content
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Clean Typography**: Professional typography using Inter font family
-- **Card-based Layout**: Modern card designs for news, events, and content
-- **Smooth Animations**: CSS animations and scroll effects for enhanced user experience
+This theme follows WordPress development best practices with a clean, organized folder structure:
 
-### Educational Features
-- **CBC-Focused Content**: Designed specifically for Competency-Based Curriculum schools
-- **Custom Post Types**: Built-in support for Events and Staff members
-- **Academic Sections**: Pre-designed sections for academics, admissions, student life
-- **News & Events**: Dedicated areas for school news and upcoming events
-- **Contact Integration**: Easy-to-use contact forms and information display
+```
+cbc-school-modern/
+├── style.css                    # Main theme stylesheet (required in root)
+├── functions.php                # Main functions file
+├── index.php                    # Main template file
+├── header.php                   # Header template
+├── footer.php                   # Footer template
+├── front-page.php              # Homepage template
+├── searchform.php              # Search form template
+├── assets/                      # All theme assets
+│   ├── css/                     # Future CSS organization
+│   ├── js/                      # JavaScript files
+│   │   ├── main.js             # Core functionality
+│   │   └── components/         # Component-specific JS
+│   │       ├── carousel.js     # Hero carousel
+│   │       ├── mobile-menu.js  # Mobile menu
+│   │       └── notice-board.js # Notice board
+│   ├── images/                  # Theme images
+│   └── fonts/                   # Custom fonts
+├── template-parts/              # Reusable template parts
+│   ├── header/                  # Header components
+│   ├── footer/                  # Footer components
+│   ├── content/                 # Content templates
+│   └── forms/                   # Form templates
+├── inc/                         # Include files
+│   ├── customizer.php          # Customizer settings
+│   ├── custom-post-types.php   # Custom post types
+│   ├── widgets.php             # Custom widgets
+│   ├── admin.php               # Admin functionality
+│   └── helpers.php             # Helper functions
+├── page-templates/              # Custom page templates
+│   └── page-news-events.php   # News & Events template
+└── docs/                        # Documentation
+    ├── SETUP_INSTRUCTIONS.md
+    ├── ACTIVATION_INSTRUCTIONS.md
+    ├── TROUBLESHOOTING.md
+    └── NEWS_EVENTS_SETUP.md
+```
 
-### Technical Features
-- **WordPress Standards**: Built following WordPress coding standards
-- **SEO Optimized**: Clean, semantic HTML structure for better search engine visibility
-- **Accessibility Ready**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Customizer Integration**: Easy customization through WordPress Customizer
-- **Widget Areas**: Multiple widget areas for flexible content management
-- **Navigation Menus**: Support for primary and footer navigation menus
+## ✨ Features
 
-## Installation
+- **Modern Design**: Clean, professional layout with contemporary styling
+- **Responsive**: Fully responsive design that works on all devices
+- **CBC-Focused**: Tailored for Kenyan educational institutions
+- **Modular Architecture**: Organized code structure for maintainability
+- **Component-Based JS**: Separate JavaScript components for better organization
+- **Template Parts**: Reusable template components
+- **Customizable**: Extensive customizer options for easy configuration
+- **Performance Optimized**: Fast loading and SEO-friendly
+- **Accessibility**: Built with accessibility best practices
+
+## 🚀 Installation
 
 1. Download the theme files
 2. Upload to your WordPress site's `/wp-content/themes/` directory
-3. Activate the theme through the WordPress admin panel
-4. Customize through Appearance > Customize
+3. Activate the theme from WordPress admin
+4. Configure the theme through Appearance > Customize
 
-## Customization
+## 🎨 Customization
 
-### Theme Customizer Options
+The theme includes extensive customization options accessible through the WordPress Customizer:
 
-Navigate to **Appearance > Customize** to access these options:
+- Hero section content and images
+- Notice board settings
+- Vision section content
+- Key highlights
+- School information and contact details
+- Navigation menus
+- Footer content
 
-#### Hero Section
-- **Hero Title**: Main headline for the homepage
-- **Hero Subtitle**: Secondary text below the title
-- **Hero Description**: Detailed description text
-- **Hero Image**: Upload a custom hero image
+## 🛠️ Development
 
-#### School Information
-- **School Location**: Display your school's location
-- **School Status**: Show current status (e.g., "Admissions Open")
+This theme is built with modern web technologies and follows WordPress coding standards.
 
-### Navigation Menus
+### Requirements
 
-The theme supports two menu locations:
-- **Primary Menu**: Main navigation in the header
-- **Footer Menu**: Links in the footer area
+- WordPress 5.0 or higher
+- PHP 7.4 or higher
 
-Recommended primary menu structure:
-- Home
-- About Us
-- Academics
-- Admissions
-- Student Life
-- Parents
-- News & Events
-- Contact
+### Local Development
 
-### Widget Areas
+Use the included Docker setup for local development:
 
-The theme includes several widget areas:
-- **Sidebar**: Main sidebar for blog pages
-- **Footer 1-3**: Three footer widget areas for flexible footer content
+```bash
+docker-compose up -d
+```
 
-## Custom Post Types
+Access your site at `http://localhost:8081`
 
-### Events
-Create and manage school events with:
-- Event title and description
-- Featured image
-- Event date and details
-- Archive page at `/events/`
+### Theme Structure Benefits
 
-### Staff
-Manage staff member profiles with:
-- Staff member name and bio
-- Profile photo
-- Position and department information
-- Archive page at `/staff/`
+- **Maintainable**: Organized code structure makes updates easier
+- **Scalable**: Easy to add new components and features
+- **Professional**: Follows senior developer standards
+- **Export-Ready**: Can be easily packaged as a distributable theme
 
-## Page Templates
+## 📱 JavaScript Components
 
-### Front Page (front-page.php)
-- Hero section with customizable content
-- About section with mission and vision
-- CBC features showcase
-- Latest news and events
-- Call-to-action sections
+The theme uses modular JavaScript components:
 
-### Standard Pages (page.php)
-- Clean layout for general content pages
-- Featured image support
-- Breadcrumb navigation
-- Comments support
+- **Carousel**: Hero image carousel with touch/swipe support
+- **Mobile Menu**: Responsive navigation with accessibility features
+- **Notice Board**: Collapsible notice board with smooth animations
 
-### Blog Posts (single.php)
-- Full post content display
-- Author and date information
-- Category and tag display
-- Post navigation
-- Comments section
+## 🎯 Custom Post Types
 
-### Archive Pages (index.php)
-- Grid layout for blog posts
-- Pagination support
-- Search functionality
-- Category filtering
+- **Events**: School events with date, time, and location
+- **Staff**: Staff members with positions and departments
 
-## Styling Guidelines
+## 📖 Documentation
 
-### Colors
-- **Primary Orange**: #ff6b35
-- **Secondary Orange**: #f7931e
-- **Accent Orange**: #ff8c42
-- **Dark Text**: #333333
-- **Light Text**: #666666
-- **Background**: #ffffff
+Comprehensive documentation is available in the `docs/` folder:
 
-### Typography
-- **Primary Font**: Inter (Google Fonts)
-- **Headings**: Bold weights (700-900)
-- **Body Text**: Regular weight (400)
-- **UI Elements**: Medium weight (500-600)
+- Setup instructions
+- Activation guide
+- Troubleshooting
+- News & Events setup
 
-### Spacing
-- **Section Padding**: 5rem (80px) vertical
-- **Card Spacing**: 2rem (32px) gaps
-- **Content Margins**: 1-2rem (16-32px)
+## 🔧 Support
 
-## Browser Support
+For support and documentation, please refer to the included documentation files in the `docs/` folder.
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Internet Explorer 11+
-
-## Performance
-
-The theme is optimized for performance with:
-- Minimal CSS and JavaScript
-- Optimized images
-- Efficient WordPress queries
-- Lazy loading support
-- Caching-friendly structure
-
-## Accessibility
-
-The theme follows WCAG 2.1 AA guidelines:
-- Proper heading hierarchy
-- Alt text for images
-- Keyboard navigation support
-- Screen reader compatibility
-- High contrast ratios
-- Focus indicators
-
-## Support
-
-For theme support and customization:
-1. Check the WordPress Customizer options
-2. Review this documentation
-3. Contact your web developer for advanced customizations
-
-## Credits
-
-- **Design Inspiration**: Modern educational websites and CBC curriculum principles
-- **Fonts**: Inter by Google Fonts
-- **Icons**: Font Awesome (optional)
-- **Hero Image**: Unsplash (educational stock photo)
-
-## Changelog
-
-### Version 1.0
-- Initial release
-- Hero section with customization options
-- Responsive design
-- Custom post types for Events and Staff
-- Educational-focused content sections
-- Mobile navigation
-- Accessibility features
-- SEO optimization
-
-## License
+## 📄 License
 
 This theme is licensed under the GPL v2 or later.
-
----
-
-**Note**: This theme is specifically designed for CBC schools and educational institutions. For best results, customize the content to match your school's specific needs and branding.

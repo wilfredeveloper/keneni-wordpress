@@ -27,39 +27,9 @@
                 ?>
             </div>
 
-            <nav id="site-navigation" class="main-navigation">
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_id'        => 'primary-menu',
-                    'container'      => false,
-                    'fallback_cb'    => 'cbc_school_fallback_menu',
-                ));
-                ?>
-            </nav>
-
-            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <?php get_template_part('template-parts/header/navigation'); ?>
+            <?php get_template_part('template-parts/header/mobile-menu'); ?>
         </div>
     </header>
 
     <div id="content" class="site-content">
-
-<?php
-// Fallback menu function
-function cbc_school_fallback_menu() {
-    echo '<ul id="primary-menu">';
-    echo '<li><a href="' . esc_url(home_url('/')) . '">Home</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/about')) . '">About Us</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/programs')) . '">Programs</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/admissions')) . '">Admissions</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/news-events')) . '">News & Events</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/gallery')) . '">Gallery</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/contact')) . '">Contact</a></li>';
-    echo '<li><a href="' . esc_url(home_url('/student-portal')) . '">Student Portal</a></li>';
-    echo '</ul>';
-}
-?>

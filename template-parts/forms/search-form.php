@@ -1,0 +1,34 @@
+<?php
+/**
+ * Search Form Template Part
+ * 
+ * @package CBC_School_Modern
+ */
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+$unique_id = wp_unique_id('search-form-');
+?>
+
+<form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
+    <label for="<?php echo esc_attr($unique_id); ?>" class="screen-reader-text">
+        <?php esc_html_e('Search for:', 'cbc-school-modern'); ?>
+    </label>
+    <input 
+        type="search" 
+        id="<?php echo esc_attr($unique_id); ?>" 
+        class="search-field" 
+        placeholder="<?php esc_attr_e('Search...', 'cbc-school-modern'); ?>" 
+        value="<?php echo get_search_query(); ?>" 
+        name="s" 
+        required
+    />
+    <button type="submit" class="search-submit" aria-label="<?php esc_attr_e('Submit search', 'cbc-school-modern'); ?>">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+</form>

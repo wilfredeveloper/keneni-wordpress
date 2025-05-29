@@ -7,16 +7,20 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-    <!-- Hero Section -->
+    <!-- Hero Section - Direct Implementation for Testing -->
     <section class="hero-section modern-gradient mobile-optimized">
         <!-- Hero Carousel Background -->
         <div class="hero-carousel">
             <?php
+            // Get hero images
             $hero_images = array();
             for ($i = 1; $i <= 5; $i++) {
                 $image_id = get_theme_mod("hero_image_$i");
                 if ($image_id) {
-                    $hero_images[] = wp_get_attachment_image_url($image_id, 'full');
+                    $image_url = wp_get_attachment_image_url($image_id, 'full');
+                    if ($image_url) {
+                        $hero_images[] = $image_url;
+                    }
                 }
             }
 
@@ -105,8 +109,6 @@ get_header();
             </div>
         </div>
 
-
-
         <div class="hero-container">
             <div class="hero-content">
                 <!-- Trust Badge -->
@@ -141,25 +143,62 @@ get_header();
                             </button>
                         </div>
                         <div class="notice-board-content">
-                            <?php for ($i = 1; $i <= 3; $i++) :
-                                $notice_title = get_theme_mod("notice_{$i}_title");
-                                $notice_content = get_theme_mod("notice_{$i}_content");
-                                $notice_date = get_theme_mod("notice_{$i}_date");
-                                $notice_url = get_theme_mod("notice_{$i}_url", '#');
+                            <?php
+                            // Get notice items
+                            $notice_items = array();
+                            for ($i = 1; $i <= 3; $i++) {
+                                $title = get_theme_mod("notice_{$i}_title");
+                                $content = get_theme_mod("notice_{$i}_content");
+                                $date = get_theme_mod("notice_{$i}_date");
+                                $url = get_theme_mod("notice_{$i}_url", '#');
 
-                                if ($notice_title && $notice_content) :
+                                if ($title && $content) {
+                                    $notice_items[] = array(
+                                        'title' => $title,
+                                        'content' => $content,
+                                        'date' => $date,
+                                        'url' => $url
+                                    );
+                                }
+                            }
+
+                            // Add default notices if none are set
+                            if (empty($notice_items)) {
+                                $notice_items = array(
+                                    array(
+                                        'title' => 'New Academic Year Registration Open',
+                                        'content' => 'Registration for the new academic year is now open. Apply online or visit our admissions office.',
+                                        'date' => date('Y-m-d'),
+                                        'url' => '#'
+                                    ),
+                                    array(
+                                        'title' => 'Parent-Teacher Conference',
+                                        'content' => 'Join us for our quarterly parent-teacher conference on Saturday, 10 AM.',
+                                        'date' => date('Y-m-d'),
+                                        'url' => '#'
+                                    ),
+                                    array(
+                                        'title' => 'Sports Day Event',
+                                        'content' => 'Annual sports day celebration with various competitions and activities.',
+                                        'date' => date('Y-m-d'),
+                                        'url' => '#'
+                                    )
+                                );
+                            }
+
+                            foreach ($notice_items as $notice) :
                             ?>
                                 <div class="notice-item">
-                                    <div class="notice-date"><?php echo esc_html(date('M d', strtotime($notice_date))); ?></div>
+                                    <div class="notice-date"><?php echo esc_html(date('M d', strtotime($notice['date']))); ?></div>
                                     <div class="notice-details">
-                                        <h4><?php echo esc_html($notice_title); ?></h4>
-                                        <p><?php echo esc_html($notice_content); ?></p>
-                                        <?php if ($notice_url && $notice_url !== '#') : ?>
-                                            <a href="<?php echo esc_url($notice_url); ?>" class="notice-link">Read More</a>
+                                        <h4><?php echo esc_html($notice['title']); ?></h4>
+                                        <p><?php echo esc_html($notice['content']); ?></p>
+                                        <?php if ($notice['url'] && $notice['url'] !== '#') : ?>
+                                            <a href="<?php echo esc_url($notice['url']); ?>" class="notice-link">Read More</a>
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                            <?php endif; endfor; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 <?php endif; ?>
