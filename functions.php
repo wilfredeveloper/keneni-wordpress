@@ -512,3 +512,32 @@ function cbc_school_body_classes($classes) {
     return $classes;
 }
 add_filter('body_class', 'cbc_school_body_classes');
+
+// Add custom rewrite rules for News & Events page
+function cbc_school_add_rewrite_rules() {
+    add_rewrite_rule('^news-events/?$', 'index.php?news_events_page=1', 'top');
+}
+add_action('init', 'cbc_school_add_rewrite_rules');
+
+// Add custom query vars
+function cbc_school_query_vars($vars) {
+    $vars[] = 'news_events_page';
+    return $vars;
+}
+add_filter('query_vars', 'cbc_school_query_vars');
+
+// Template redirect for News & Events page
+function cbc_school_template_redirect() {
+    if (get_query_var('news_events_page')) {
+        include(get_template_directory() . '/page-news-events.php');
+        exit;
+    }
+}
+add_action('template_redirect', 'cbc_school_template_redirect');
+
+// Flush rewrite rules on theme activation
+function cbc_school_flush_rewrite_rules() {
+    cbc_school_add_rewrite_rules();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'cbc_school_flush_rewrite_rules');

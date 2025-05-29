@@ -300,41 +300,40 @@
     }
 
     /**
-     * Initialize notice board functionality
+     * Enhanced notice board functionality for mobile
      */
     function initNoticeBoard() {
-        var noticeBoard = $('.notice-board');
-        var toggleButton = $('.notice-board-toggle');
-        var header = $('.notice-board-header');
+        const noticeToggle = $('.notice-board-toggle');
+        const noticeContent = $('.notice-board-content');
+        const noticeBoard = $('.notice-board');
 
-        if (!noticeBoard.length) return;
+        // Toggle notice board visibility
+        noticeToggle.on('click', function() {
+            noticeContent.slideToggle(200);
+            noticeBoard.toggleClass('expanded');
+            $(this).toggleClass('active');
 
-        // Toggle notice board
-        header.on('click', function() {
-            noticeBoard.toggleClass('collapsed');
-        });
-
-        // Close notice board when clicking outside
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.notice-board').length) {
-                // Don't auto-collapse for now to keep it visible
-                // noticeBoard.addClass('collapsed');
+            // Change toggle icon based on state
+            if ($(this).hasClass('active')) {
+                $(this).html('<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 14L12 9L17 14H7Z" fill="currentColor"/></svg>');
+            } else {
+                $(this).html('<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 10L12 15L17 10H7Z" fill="currentColor"/></svg>');
             }
         });
 
-        // Add smooth scrolling to notice links
-        $('.notice-link').on('click', function(e) {
-            var href = $(this).attr('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                var target = $(href);
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 100
-                    }, 800);
+        // Auto-collapse notice board on small screens when scrolling down
+        // Only apply to non-hero notice boards (the old positioned ones)
+        if ($(window).width() <= 768) {
+            $(window).on('scroll', function() {
+                // Only auto-collapse if it's not the hero notice board
+                if ($(this).scrollTop() > 100 && noticeBoard.hasClass('expanded') && !noticeBoard.hasClass('hero-notice-board')) {
+                    noticeContent.slideUp(200);
+                    noticeBoard.removeClass('expanded');
+                    noticeToggle.removeClass('active');
+                    noticeToggle.html('<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 10L12 15L17 10H7Z" fill="currentColor"/></svg>');
                 }
-            }
-        });
+            });
+        }
     }
 
 })(jQuery);
