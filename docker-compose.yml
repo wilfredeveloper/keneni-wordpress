@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   wordpress:
     image: wordpress:latest
@@ -10,21 +8,23 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
-      # Enable WordPress debug mode for development
-      WORDPRESS_DEBUG: 1
+      # Fix debug settings
       WORDPRESS_CONFIG_EXTRA: |
-        define('WP_DEBUG', true);
         define('WP_DEBUG_LOG', true);
         define('WP_DEBUG_DISPLAY', false);
         define('SCRIPT_DEBUG', true);
     volumes:
       - wordpress_data:/var/www/html
-      # Mount your theme directory for live editing
       - ./:/var/www/html/wp-content/themes/cbc-school-modern
-      # Mount uploads directory to persist media files
       - uploads_data:/var/www/html/wp-content/uploads
     depends_on:
       - db
+    # Add healthcheck to ensure WordPress is running properly
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
     image: mysql:5.7

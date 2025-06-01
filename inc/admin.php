@@ -162,6 +162,46 @@ function cbc_school_add_meta_boxes() {
         'normal',
         'high'
     );
+
+    // Contact page meta boxes - only show on contact page
+    global $post;
+    if ($post && $post->post_name === 'contact') {
+        add_meta_box(
+            'contact_hero_details',
+            __('Hero Section', 'cbc-school-modern'),
+            'cbc_school_contact_hero_meta_box_callback',
+            'page',
+            'normal',
+            'high'
+        );
+
+        add_meta_box(
+            'contact_info_details',
+            __('Contact Information', 'cbc-school-modern'),
+            'cbc_school_contact_info_meta_box_callback',
+            'page',
+            'normal',
+            'high'
+        );
+
+        add_meta_box(
+            'contact_hours_details',
+            __('Office Hours & Transportation', 'cbc-school-modern'),
+            'cbc_school_contact_hours_meta_box_callback',
+            'page',
+            'normal',
+            'high'
+        );
+
+        add_meta_box(
+            'contact_faq_details',
+            __('FAQ Section', 'cbc-school-modern'),
+            'cbc_school_contact_faq_meta_box_callback',
+            'page',
+            'normal',
+            'high'
+        );
+    }
 }
 add_action('add_meta_boxes', 'cbc_school_add_meta_boxes');
 
@@ -223,11 +263,216 @@ function cbc_school_staff_meta_box_callback($post) {
 }
 
 /**
+ * Contact Hero meta box callback
+ */
+function cbc_school_contact_hero_meta_box_callback($post) {
+    wp_nonce_field('cbc_school_contact_meta_box', 'cbc_school_contact_meta_box_nonce');
+
+    $hero_title = get_post_meta($post->ID, 'contact_hero_title', true);
+    $hero_description = get_post_meta($post->ID, 'contact_hero_description', true);
+
+    // Set defaults if empty
+    if (empty($hero_title)) {
+        $hero_title = 'Contact Us';
+    }
+    if (empty($hero_description)) {
+        $hero_description = "We'd love to hear from you. Reach out with any questions, inquiries, or feedback.";
+    }
+
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_hero_title">' . __('Hero Title', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_hero_title" name="contact_hero_title" value="' . esc_attr($hero_title) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_hero_description">' . __('Hero Description', 'cbc-school-modern') . '</label></th>';
+    echo '<td><textarea id="contact_hero_description" name="contact_hero_description" rows="3" class="large-text">' . esc_textarea($hero_description) . '</textarea></td>';
+    echo '</tr>';
+    echo '</table>';
+}
+
+/**
+ * Contact Information meta box callback
+ */
+function cbc_school_contact_info_meta_box_callback($post) {
+    // Get existing values
+    $location_title = get_post_meta($post->ID, 'contact_location_title', true);
+    $location_address = get_post_meta($post->ID, 'contact_location_address', true);
+    $location_city = get_post_meta($post->ID, 'contact_location_city', true);
+    $location_country = get_post_meta($post->ID, 'contact_location_country', true);
+
+    $phone_main = get_post_meta($post->ID, 'contact_phone_main', true);
+    $phone_admissions = get_post_meta($post->ID, 'contact_phone_admissions', true);
+    $phone_fax = get_post_meta($post->ID, 'contact_phone_fax', true);
+
+    $email_general = get_post_meta($post->ID, 'contact_email_general', true);
+    $email_admissions = get_post_meta($post->ID, 'contact_email_admissions', true);
+    $email_support = get_post_meta($post->ID, 'contact_email_support', true);
+
+    // Set defaults if empty
+    if (empty($location_title)) $location_title = 'Our Location';
+    if (empty($location_address)) $location_address = '123 Education Street';
+    if (empty($location_city)) $location_city = 'City, State 12345';
+    if (empty($location_country)) $location_country = 'Country';
+    if (empty($phone_main)) $phone_main = '+1 (123) 456-7890';
+    if (empty($phone_admissions)) $phone_admissions = '+1 (123) 456-7891';
+    if (empty($phone_fax)) $phone_fax = '+1 (123) 456-7892';
+    if (empty($email_general)) $email_general = 'info@schoolname.edu';
+    if (empty($email_admissions)) $email_admissions = 'admissions@schoolname.edu';
+    if (empty($email_support)) $email_support = 'support@schoolname.edu';
+
+    echo '<h4>' . __('Location Information', 'cbc-school-modern') . '</h4>';
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_location_title">' . __('Location Title', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_location_title" name="contact_location_title" value="' . esc_attr($location_title) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_location_address">' . __('Street Address', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_location_address" name="contact_location_address" value="' . esc_attr($location_address) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_location_city">' . __('City, State/Province', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_location_city" name="contact_location_city" value="' . esc_attr($location_city) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_location_country">' . __('Country', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_location_country" name="contact_location_country" value="' . esc_attr($location_country) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '</table>';
+
+    echo '<h4>' . __('Phone Numbers', 'cbc-school-modern') . '</h4>';
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_phone_main">' . __('Main Office', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="tel" id="contact_phone_main" name="contact_phone_main" value="' . esc_attr($phone_main) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_phone_admissions">' . __('Admissions', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="tel" id="contact_phone_admissions" name="contact_phone_admissions" value="' . esc_attr($phone_admissions) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_phone_fax">' . __('Fax', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="tel" id="contact_phone_fax" name="contact_phone_fax" value="' . esc_attr($phone_fax) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '</table>';
+
+    echo '<h4>' . __('Email Addresses', 'cbc-school-modern') . '</h4>';
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_email_general">' . __('General Inquiries', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="email" id="contact_email_general" name="contact_email_general" value="' . esc_attr($email_general) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_email_admissions">' . __('Admissions', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="email" id="contact_email_admissions" name="contact_email_admissions" value="' . esc_attr($email_admissions) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_email_support">' . __('Support', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="email" id="contact_email_support" name="contact_email_support" value="' . esc_attr($email_support) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '</table>';
+}
+
+/**
+ * Contact Hours & Transportation meta box callback
+ */
+function cbc_school_contact_hours_meta_box_callback($post) {
+    // Get existing values
+    $hours_mon_fri = get_post_meta($post->ID, 'contact_hours_mon_fri', true);
+    $hours_saturday = get_post_meta($post->ID, 'contact_hours_saturday', true);
+    $hours_sunday = get_post_meta($post->ID, 'contact_hours_sunday', true);
+    $transportation_info = get_post_meta($post->ID, 'contact_transportation_info', true);
+
+    // Set defaults if empty
+    if (empty($hours_mon_fri)) $hours_mon_fri = '8:00 AM - 4:30 PM';
+    if (empty($hours_saturday)) $hours_saturday = '9:00 AM - 12:00 PM';
+    if (empty($hours_sunday)) $hours_sunday = 'Closed';
+    if (empty($transportation_info)) $transportation_info = 'Our school is easily accessible by public transportation. Bus routes 15, 30, and 45 stop nearby in front of the school. The nearest subway station is Central Station, a 10-minute walk away.';
+
+    echo '<h4>' . __('Office Hours', 'cbc-school-modern') . '</h4>';
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_hours_mon_fri">' . __('Monday - Friday', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_hours_mon_fri" name="contact_hours_mon_fri" value="' . esc_attr($hours_mon_fri) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_hours_saturday">' . __('Saturday', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_hours_saturday" name="contact_hours_saturday" value="' . esc_attr($hours_saturday) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="contact_hours_sunday">' . __('Sunday', 'cbc-school-modern') . '</label></th>';
+    echo '<td><input type="text" id="contact_hours_sunday" name="contact_hours_sunday" value="' . esc_attr($hours_sunday) . '" class="regular-text" /></td>';
+    echo '</tr>';
+    echo '</table>';
+
+    echo '<h4>' . __('Transportation Information', 'cbc-school-modern') . '</h4>';
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="contact_transportation_info">' . __('Transportation Details', 'cbc-school-modern') . '</label></th>';
+    echo '<td><textarea id="contact_transportation_info" name="contact_transportation_info" rows="4" class="large-text">' . esc_textarea($transportation_info) . '</textarea></td>';
+    echo '</tr>';
+    echo '</table>';
+}
+
+/**
+ * Contact FAQ meta box callback
+ */
+function cbc_school_contact_faq_meta_box_callback($post) {
+    // Get existing FAQ items
+    $faq_items = array();
+    for ($i = 1; $i <= 4; $i++) {
+        $question = get_post_meta($post->ID, "contact_faq_{$i}_question", true);
+        $answer = get_post_meta($post->ID, "contact_faq_{$i}_answer", true);
+        $faq_items[$i] = array('question' => $question, 'answer' => $answer);
+    }
+
+    // Set defaults if empty
+    $default_faqs = array(
+        1 => array(
+            'question' => 'What are the best hours to call?',
+            'answer' => 'Our office staff is available to take calls from 8:00 AM to 4:30 PM on weekdays. For urgent matters outside these hours, please email us.'
+        ),
+        2 => array(
+            'question' => 'How quickly will I receive a response?',
+            'answer' => 'We aim to respond to all inquiries within 24-48 hours during business days. For urgent matters, please call our main office.'
+        ),
+        3 => array(
+            'question' => 'Can I schedule a campus tour?',
+            'answer' => 'Yes, campus tours are available by appointment. Please contact our admissions office to schedule a tour that ensures your message reaches the right department.'
+        ),
+        4 => array(
+            'question' => 'Who should I contact for specific departments?',
+            'answer' => 'For specific inquiries, please use the subject dropdown in our contact form to ensure your message reaches the right department.'
+        )
+    );
+
+    echo '<p>' . __('Manage frequently asked questions for the contact page.', 'cbc-school-modern') . '</p>';
+
+    for ($i = 1; $i <= 4; $i++) {
+        $question = !empty($faq_items[$i]['question']) ? $faq_items[$i]['question'] : $default_faqs[$i]['question'];
+        $answer = !empty($faq_items[$i]['answer']) ? $faq_items[$i]['answer'] : $default_faqs[$i]['answer'];
+
+        echo '<h4>' . sprintf(__('FAQ Item %d', 'cbc-school-modern'), $i) . '</h4>';
+        echo '<table class="form-table">';
+        echo '<tr>';
+        echo '<th><label for="contact_faq_' . $i . '_question">' . __('Question', 'cbc-school-modern') . '</label></th>';
+        echo '<td><input type="text" id="contact_faq_' . $i . '_question" name="contact_faq_' . $i . '_question" value="' . esc_attr($question) . '" class="large-text" /></td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<th><label for="contact_faq_' . $i . '_answer">' . __('Answer', 'cbc-school-modern') . '</label></th>';
+        echo '<td><textarea id="contact_faq_' . $i . '_answer" name="contact_faq_' . $i . '_answer" rows="3" class="large-text">' . esc_textarea($answer) . '</textarea></td>';
+        echo '</tr>';
+        echo '</table>';
+    }
+}
+
+/**
  * Save meta box data
  */
 function cbc_school_save_meta_box_data($post_id) {
     // Check if nonce is valid
-    if (!isset($_POST['cbc_school_event_meta_box_nonce']) && !isset($_POST['cbc_school_staff_meta_box_nonce'])) {
+    if (!isset($_POST['cbc_school_event_meta_box_nonce']) && !isset($_POST['cbc_school_staff_meta_box_nonce']) && !isset($_POST['cbc_school_contact_meta_box_nonce'])) {
         return;
     }
 
@@ -240,6 +485,12 @@ function cbc_school_save_meta_box_data($post_id) {
 
     if (isset($_POST['cbc_school_staff_meta_box_nonce'])) {
         if (!wp_verify_nonce($_POST['cbc_school_staff_meta_box_nonce'], 'cbc_school_staff_meta_box')) {
+            return;
+        }
+    }
+
+    if (isset($_POST['cbc_school_contact_meta_box_nonce'])) {
+        if (!wp_verify_nonce($_POST['cbc_school_contact_meta_box_nonce'], 'cbc_school_contact_meta_box')) {
             return;
         }
     }
@@ -272,6 +523,76 @@ function cbc_school_save_meta_box_data($post_id) {
     }
     if (isset($_POST['staff_phone'])) {
         update_post_meta($post_id, 'staff_phone', sanitize_text_field($_POST['staff_phone']));
+    }
+
+    // Save contact page meta
+    if (isset($_POST['contact_hero_title'])) {
+        update_post_meta($post_id, 'contact_hero_title', sanitize_text_field($_POST['contact_hero_title']));
+    }
+    if (isset($_POST['contact_hero_description'])) {
+        update_post_meta($post_id, 'contact_hero_description', sanitize_textarea_field($_POST['contact_hero_description']));
+    }
+
+    // Contact information
+    if (isset($_POST['contact_location_title'])) {
+        update_post_meta($post_id, 'contact_location_title', sanitize_text_field($_POST['contact_location_title']));
+    }
+    if (isset($_POST['contact_location_address'])) {
+        update_post_meta($post_id, 'contact_location_address', sanitize_text_field($_POST['contact_location_address']));
+    }
+    if (isset($_POST['contact_location_city'])) {
+        update_post_meta($post_id, 'contact_location_city', sanitize_text_field($_POST['contact_location_city']));
+    }
+    if (isset($_POST['contact_location_country'])) {
+        update_post_meta($post_id, 'contact_location_country', sanitize_text_field($_POST['contact_location_country']));
+    }
+
+    // Phone numbers
+    if (isset($_POST['contact_phone_main'])) {
+        update_post_meta($post_id, 'contact_phone_main', sanitize_text_field($_POST['contact_phone_main']));
+    }
+    if (isset($_POST['contact_phone_admissions'])) {
+        update_post_meta($post_id, 'contact_phone_admissions', sanitize_text_field($_POST['contact_phone_admissions']));
+    }
+    if (isset($_POST['contact_phone_fax'])) {
+        update_post_meta($post_id, 'contact_phone_fax', sanitize_text_field($_POST['contact_phone_fax']));
+    }
+
+    // Email addresses
+    if (isset($_POST['contact_email_general'])) {
+        update_post_meta($post_id, 'contact_email_general', sanitize_email($_POST['contact_email_general']));
+    }
+    if (isset($_POST['contact_email_admissions'])) {
+        update_post_meta($post_id, 'contact_email_admissions', sanitize_email($_POST['contact_email_admissions']));
+    }
+    if (isset($_POST['contact_email_support'])) {
+        update_post_meta($post_id, 'contact_email_support', sanitize_email($_POST['contact_email_support']));
+    }
+
+    // Office hours
+    if (isset($_POST['contact_hours_mon_fri'])) {
+        update_post_meta($post_id, 'contact_hours_mon_fri', sanitize_text_field($_POST['contact_hours_mon_fri']));
+    }
+    if (isset($_POST['contact_hours_saturday'])) {
+        update_post_meta($post_id, 'contact_hours_saturday', sanitize_text_field($_POST['contact_hours_saturday']));
+    }
+    if (isset($_POST['contact_hours_sunday'])) {
+        update_post_meta($post_id, 'contact_hours_sunday', sanitize_text_field($_POST['contact_hours_sunday']));
+    }
+
+    // Transportation
+    if (isset($_POST['contact_transportation_info'])) {
+        update_post_meta($post_id, 'contact_transportation_info', sanitize_textarea_field($_POST['contact_transportation_info']));
+    }
+
+    // FAQ items
+    for ($i = 1; $i <= 4; $i++) {
+        if (isset($_POST["contact_faq_{$i}_question"])) {
+            update_post_meta($post_id, "contact_faq_{$i}_question", sanitize_text_field($_POST["contact_faq_{$i}_question"]));
+        }
+        if (isset($_POST["contact_faq_{$i}_answer"])) {
+            update_post_meta($post_id, "contact_faq_{$i}_answer", sanitize_textarea_field($_POST["contact_faq_{$i}_answer"]));
+        }
     }
 }
 add_action('save_post', 'cbc_school_save_meta_box_data');
