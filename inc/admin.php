@@ -683,38 +683,38 @@ function cbc_school_create_default_pages() {
         }
     }
 
-    // Check if Academics page exists
-    $academics_page = get_page_by_path('academics');
+    // Check if Programs page exists
+    $programs_page = get_page_by_path('programs');
 
-    if (!$academics_page) {
-        // Create Academics page
-        $academics_page_id = wp_insert_post(array(
-            'post_title' => 'Academics',
-            'post_name' => 'academics',
-            'post_content' => 'This page uses the Academics template to display comprehensive information about our curriculum and educational programs.',
+    if (!$programs_page) {
+        // Create Programs page
+        $programs_page_id = wp_insert_post(array(
+            'post_title' => 'Programs',
+            'post_name' => 'programs',
+            'post_content' => 'This page uses the Programs template to display comprehensive information about our curriculum and educational programs.',
             'post_status' => 'publish',
             'post_type' => 'page',
             'meta_input' => array(
-                '_wp_page_template' => 'page-academics.php'
+                '_wp_page_template' => 'page-programs.php'
             )
         ));
 
-        if ($academics_page_id && !is_wp_error($academics_page_id)) {
+        if ($programs_page_id && !is_wp_error($programs_page_id)) {
             // Set the page template
-            update_post_meta($academics_page_id, '_wp_page_template', 'page-academics.php');
+            update_post_meta($programs_page_id, '_wp_page_template', 'page-programs.php');
 
             // Log success
-            error_log('CBC School Theme: Academics page created successfully with ID: ' . $academics_page_id);
+            error_log('CBC School Theme: Programs page created successfully with ID: ' . $programs_page_id);
         } else {
             // Log error
-            error_log('CBC School Theme: Failed to create Academics page. Error: ' . (is_wp_error($academics_page_id) ? $academics_page_id->get_error_message() : 'Unknown error'));
+            error_log('CBC School Theme: Failed to create Programs page. Error: ' . (is_wp_error($programs_page_id) ? $programs_page_id->get_error_message() : 'Unknown error'));
         }
     } else {
         // Page exists, ensure it has the correct template
-        $current_template = get_post_meta($academics_page->ID, '_wp_page_template', true);
-        if ($current_template !== 'page-academics.php') {
-            update_post_meta($academics_page->ID, '_wp_page_template', 'page-academics.php');
-            error_log('CBC School Theme: Updated Academics page template to page-academics.php');
+        $current_template = get_post_meta($programs_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-programs.php') {
+            update_post_meta($programs_page->ID, '_wp_page_template', 'page-programs.php');
+            error_log('CBC School Theme: Updated Programs page template to page-programs.php');
         }
     }
 
@@ -785,6 +785,41 @@ function cbc_school_create_default_pages() {
         if ($current_template !== 'page-gallery.php') {
             update_post_meta($gallery_page->ID, '_wp_page_template', 'page-gallery.php');
             error_log('CBC School Theme: Updated Gallery page template to page-gallery.php');
+        }
+    }
+
+    // Check if Admissions page exists
+    $admissions_page = get_page_by_path('admissions');
+
+    if (!$admissions_page) {
+        // Create Admissions page
+        $admissions_page_id = wp_insert_post(array(
+            'post_title' => 'Admissions',
+            'post_name' => 'admissions',
+            'post_content' => 'This page uses the Admissions template to display comprehensive admission information, requirements, and application form.',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'meta_input' => array(
+                '_wp_page_template' => 'page-admissions.php'
+            )
+        ));
+
+        if ($admissions_page_id && !is_wp_error($admissions_page_id)) {
+            // Set the page template
+            update_post_meta($admissions_page_id, '_wp_page_template', 'page-admissions.php');
+
+            // Log success
+            error_log('CBC School Theme: Admissions page created successfully with ID: ' . $admissions_page_id);
+        } else {
+            // Log error
+            error_log('CBC School Theme: Failed to create Admissions page. Error: ' . (is_wp_error($admissions_page_id) ? $admissions_page_id->get_error_message() : 'Unknown error'));
+        }
+    } else {
+        // Page exists, ensure it has the correct template
+        $current_template = get_post_meta($admissions_page->ID, '_wp_page_template', true);
+        if ($current_template !== 'page-admissions.php') {
+            update_post_meta($admissions_page->ID, '_wp_page_template', 'page-admissions.php');
+            error_log('CBC School Theme: Updated Admissions page template to page-admissions.php');
         }
     }
 
@@ -902,15 +937,18 @@ function cbc_school_setup_page() {
     if (isset($_GET['created'])) {
         if ($_GET['created'] === 'about') {
             echo '<div class="notice notice-success"><p>About page created successfully!</p></div>';
-        } elseif ($_GET['created'] === 'academics') {
-            echo '<div class="notice notice-success"><p>Academics page created successfully!</p></div>';
+        } elseif ($_GET['created'] === 'programs') {
+            echo '<div class="notice notice-success"><p>Programs page created successfully!</p></div>';
+        } elseif ($_GET['created'] === 'admissions') {
+            echo '<div class="notice notice-success"><p>Admissions page created successfully!</p></div>';
         } elseif ($_GET['created'] === 'all') {
             echo '<div class="notice notice-success"><p>All pages have been created/updated successfully!</p></div>';
         }
     }
 
     $about_page = get_page_by_path('about');
-    $academics_page = get_page_by_path('academics');
+    $programs_page = get_page_by_path('programs');
+    $admissions_page = get_page_by_path('admissions');
     $contact_page = get_page_by_path('contact');
     $gallery_page = get_page_by_path('gallery');
 
@@ -935,13 +973,26 @@ function cbc_school_setup_page() {
     }
     echo '</tr>';
 
-    // Academics page status
+    // Programs page status
     echo '<tr>';
-    echo '<td>Academics</td>';
-    if ($academics_page) {
+    echo '<td>Programs</td>';
+    if ($programs_page) {
         echo '<td><span style="color: green;">✓ Created</span></td>';
-        echo '<td><a href="' . get_permalink($academics_page->ID) . '" target="_blank">View Page</a> | ';
-        echo '<a href="' . admin_url('post.php?post=' . $academics_page->ID . '&action=edit') . '">Edit</a></td>';
+        echo '<td><a href="' . get_permalink($programs_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $programs_page->ID . '&action=edit') . '">Edit</a></td>';
+    } else {
+        echo '<td><span style="color: red;">✗ Missing</span></td>';
+        echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';
+    }
+    echo '</tr>';
+
+    // Admissions page status
+    echo '<tr>';
+    echo '<td>Admissions</td>';
+    if ($admissions_page) {
+        echo '<td><span style="color: green;">✓ Created</span></td>';
+        echo '<td><a href="' . get_permalink($admissions_page->ID) . '" target="_blank">View Page</a> | ';
+        echo '<a href="' . admin_url('post.php?post=' . $admissions_page->ID . '&action=edit') . '">Edit</a></td>';
     } else {
         echo '<td><span style="color: red;">✗ Missing</span></td>';
         echo '<td><a href="' . admin_url('admin.php?page=cbc-school-setup&action=create-pages') . '" class="button">Create All Pages</a></td>';

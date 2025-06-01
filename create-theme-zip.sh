@@ -5,7 +5,7 @@
 echo "Creating CBC School Modern Theme ZIP file..."
 
 # Create theme directory name
-THEME_NAME="cbc-school-modern"
+THEME_NAME="Keneni-Academy"
 ZIP_NAME="${THEME_NAME}.zip"
 
 # Remove existing ZIP if it exists
@@ -14,36 +14,12 @@ if [ -f "$ZIP_NAME" ]; then
     echo "Removed existing $ZIP_NAME"
 fi
 
-# Create ZIP file with all theme files
+# Create ZIP file with all theme files - INCLUDE EVERYTHING
 zip -r "$ZIP_NAME" \
-    style.css \
-    functions.php \
-    index.php \
-    header.php \
-    footer.php \
-    front-page.php \
-    page.php \
-    single.php \
-    archive.php \
-    sidebar.php \
-    404.php \
-    comments.php \
-    searchform.php \
-    screenshot.png \
-    js/ \
-    README.md \
-    -x "*.DS_Store" "*.git*" "node_modules/*" "*.log"
+    ./* \
+    -x "*.DS_Store" "*.git*" "node_modules/*" "*.log" "docker-compose.yml" "dev.sh" \
+    "create-theme-zip.sh" ".gitignore" ".github/*" "package.json" "package-lock.json" \
+    "node_modules" "vendor" ".env" "*.zip"
 
-if [ $? -eq 0 ]; then
-    echo "✅ Successfully created $ZIP_NAME"
-    echo "📁 File size: $(du -h "$ZIP_NAME" | cut -f1)"
-    echo ""
-    echo "🚀 Next steps:"
-    echo "1. Upload this ZIP file to WordPress admin"
-    echo "2. Go to Appearance > Themes > Add New > Upload Theme"
-    echo "3. Select $ZIP_NAME and click 'Install Now'"
-    echo "4. Activate the theme"
-else
-    echo "❌ Error creating ZIP file"
-    exit 1
-fi
+echo "✅ Theme ZIP file created: $ZIP_NAME"
+echo "You can now upload this ZIP file to WordPress."
