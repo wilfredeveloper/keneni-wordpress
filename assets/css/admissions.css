@@ -626,14 +626,10 @@
 
 /* Extra small phones - 480px and below (override global styles) */
 @media (max-width: 480px) {
-    .admissions-page {
-        padding-top: 50px; /* Even smaller padding for very small screens */
-    }
-
     .admissions-hero-section {
         min-height: 50vh !important;
-        max-height: 65vh !important;
-        padding: 1.5rem 0 !important;
+        max-height: 100vh !important;
+        padding: 2rem 0 !important;
     }
 
     .admissions-hero-section .page-title {
@@ -670,10 +666,6 @@
 
 /* General responsive adjustments for other sections */
 @media (max-width: 768px) {
-    .admissions-page {
-        padding-top: 60px; /* Reduced padding for mobile header */
-    }
-
     .process-grid {
         grid-template-columns: 1fr;
     }
