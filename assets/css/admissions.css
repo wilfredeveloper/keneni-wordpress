@@ -1,13 +1,20 @@
 /* Admissions Page Styles */
 
+/* Admissions Page Main Container */
+.admissions-page {
+    padding-top: 80px; /* Account for fixed header */
+}
+
 /* Hero Section */
 .admissions-hero-section {
     position: relative;
     min-height: 70vh;
+    max-height: 90vh; /* Prevent excessive height on very large screens */
     display: flex;
     align-items: center;
     overflow: hidden;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 0; /* Add consistent padding */
 }
 
 .admissions-hero-section .hero-background {
@@ -434,33 +441,257 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* Extra large screens - 1400px and up */
+@media (min-width: 1400px) {
+    .admissions-hero-section {
+        min-height: 70vh;
+        max-height: 80vh; /* Constrain height on very large screens */
+        padding: 3rem 0;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 4.5rem;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 1.5rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 5rem;
+    }
+}
+
+/* Large screens - 1200px to 1399px */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .admissions-hero-section {
+        min-height: 75vh;
+        max-height: 85vh;
+        padding: 2.5rem 0;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 4rem;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 1.4rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 4rem;
+    }
+}
+
+/* Medium-large screens - 992px to 1199px */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .admissions-hero-section {
+        min-height: 70vh;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 3.2rem;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 1.2rem;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 3rem;
+    }
+
+    .admissions-hero-section .container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Tablets - 768px to 991px */
+@media (max-width: 991px) and (min-width: 768px) {
+    .admissions-hero-section {
+        min-height: 65vh;
+        padding: 3rem 0;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 2.8rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 2.5rem;
+    }
+
+    .admissions-hero-section .stat-number {
+        font-size: 2.2rem;
+    }
+
+    .admissions-hero-section .container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Small tablets and large phones - 576px to 767px */
+@media (max-width: 767px) and (min-width: 576px) {
+    .admissions-hero-section {
+        min-height: 60vh;
+        padding: 2.5rem 0;
+    }
+
     .admissions-hero-section .page-title {
         font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
-    
+
+    .admissions-hero-section .hero-description {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+
     .admissions-hero-section .hero-stats {
         gap: 2rem;
+        flex-direction: column;
+        align-items: center;
     }
-    
+
+    .admissions-hero-section .stat-item {
+        min-width: 150px;
+    }
+
+    .admissions-hero-section .stat-number {
+        font-size: 2rem;
+    }
+
+    .admissions-hero-section .container {
+        padding: 0 1rem;
+    }
+}
+
+/* Small phones - below 576px */
+@media (max-width: 575px) {
+    .admissions-hero-section {
+        min-height: 55vh !important; /* Override any global hero-section styles */
+        max-height: 70vh !important;
+        padding: 2rem 0 !important;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+        line-height: 1.5;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admissions-hero-section .stat-item {
+        min-width: 120px;
+    }
+
+    .admissions-hero-section .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .admissions-hero-section .stat-label {
+        font-size: 0.9rem;
+    }
+
+    .admissions-hero-section .container {
+        padding: 0 0.75rem;
+    }
+}
+
+/* Extra small phones - 480px and below (override global styles) */
+@media (max-width: 480px) {
+    .admissions-page {
+        padding-top: 50px; /* Even smaller padding for very small screens */
+    }
+
+    .admissions-hero-section {
+        min-height: 50vh !important;
+        max-height: 65vh !important;
+        padding: 1.5rem 0 !important;
+    }
+
+    .admissions-hero-section .page-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.6rem;
+        line-height: 1.1;
+    }
+
+    .admissions-hero-section .hero-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+        padding: 0 0.25rem;
+        line-height: 1.4;
+    }
+
+    .admissions-hero-section .hero-stats {
+        gap: 1.2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admissions-hero-section .stat-number {
+        font-size: 1.6rem;
+    }
+
+    .admissions-hero-section .stat-label {
+        font-size: 0.85rem;
+    }
+
+    .admissions-hero-section .container {
+        padding: 0 0.5rem;
+    }
+}
+
+/* General responsive adjustments for other sections */
+@media (max-width: 768px) {
+    .admissions-page {
+        padding-top: 60px; /* Reduced padding for mobile header */
+    }
+
     .process-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .tab-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .tab-navigation {
         flex-direction: column;
     }
-    
+
     .tab-button {
         border-bottom: none;
         border-left: 3px solid transparent;
     }
-    
+
     .tab-button.active {
         border-left-color: #667eea;
         border-bottom-color: transparent;
