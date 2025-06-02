@@ -53,5 +53,15 @@ function cbc_school_widgets_init() {
         'before_title'  => '<h3>',
         'after_title'   => '</h3>',
     ));
+
+    register_sidebar(array(
+        'name'          => __('Footer 4', 'cbc-school-modern'),
+        'id'            => 'footer-4',
+        'description'   => __('Footer widget area 4.', 'cbc-school-modern'),
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
 }
 add_action('widgets_init', 'cbc_school_widgets_init');
